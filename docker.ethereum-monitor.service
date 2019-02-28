@@ -6,7 +6,7 @@ Requires=docker.service
 [Service]
 TimeoutStartSec=30
 ExecStartPre=-/usr/bin/docker pull fundrequestio/ethereum-node-monitor:master
-ExecStart=/usr/bin/docker run --rm --name ethereum-monitor -v /opt/docker/ethereum-monitor:/config fundrequestio/ethereum-monitor:master
+ExecStart=/bin/bash /opt/docker/ethereum-monitor/run.sh
 ExecStop=-/usr/bin/docker stop ethereum-monitor
 [Install]
 WantedBy=multi-user.target
