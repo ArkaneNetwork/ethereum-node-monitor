@@ -41,11 +41,11 @@ class EthereumNodeHealthIndicator(private val web3j: Web3j) : AbstractReactiveHe
                         } else {
                             Mono.just(builder.up().withDetail("ethereumnode", "latest block is " + block.get().block.number).build())
                         }
-                    }.orElse(
-                            Mono.just(
-                                    builder.down()
-                                            .withDetail("ethereumnode.down", "Unable to fetch status for ethereum node").build())
-                    )
+                    }.orElseGet {
+                        Mono.just(
+                                builder.down()
+                                        .withDetail("ethereumnode.down", "Unable to fetch status for ethereum node").build())
+                    }
         } catch (ex: Exception) {
             return Mono.just(
                     builder.down()
